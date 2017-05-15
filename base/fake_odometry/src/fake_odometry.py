@@ -1,4 +1,4 @@
-#!/usr/bin/env python  
+#!/usr/bin/env python
 import roslib
 roslib.load_manifest('fake_odometry')
 import rospy
@@ -13,7 +13,7 @@ if __name__ == '__main__':
     rospy.init_node('fake_odometry')
     base_frame_id = 'base_link'
     odom_frame_id = 'odom'
-    rate_value = 1.0
+    rate_value = 0.75
 
     odom_pub = rospy.Publisher("odom", Odometry, queue_size=5)
     odom_broadcaster = tf.TransformBroadcaster()
@@ -43,7 +43,9 @@ if __name__ == '__main__':
             continue
 
         now = rospy.Time.now()
+	# print now
         elapsed = now - then
+	# print elapsed
         elapsed = elapsed.to_sec()
 
         now_position_x = trans[0]
@@ -59,12 +61,21 @@ if __name__ == '__main__':
             dx = 0.0
             dz = 0.0
 
+        print "dx:",dx,"dz:",dz,"elapsed",elapsed
+
         odom_broadcaster.sendTransform(trans,
             rot,
             now,
             base_frame_id,
             odom_frame_id
             )
+
+        last_position_x = now_position_x
+        last_position_y = now_position_y
+        last_angular_z = now_angular_z
+        last_angular_w = now_angular_w
+        last_angular_theta = now_angular_theta
+        then = now
 
         quaternion = Quaternion()
         quaternion.x = rot[0]

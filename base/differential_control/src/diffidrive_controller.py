@@ -11,7 +11,7 @@ from std_msgs.msg import Float32
 class CmdVelToDiffDriveMotors:
   def __init__(self):
     rospy.init_node('diffdrive_controller')
-    self.cmdvel_sub = rospy.Subscriber('/cmd_vel_mux/input/teleop', Twist, self.twistCallback)
+    self.cmdvel_sub = rospy.Subscriber('/cmd_vel', Twist, self.twistCallback)
     self.lwheel_tangent_vel_target_pub = rospy.Publisher('lwheel_tangent_vel_target', Float32, queue_size=10)
     self.rwheel_tangent_vel_target_pub = rospy.Publisher('rwheel_tangent_vel_target', Float32, queue_size=10)
 
@@ -20,9 +20,9 @@ class CmdVelToDiffDriveMotors:
     self.rate = rospy.get_param('~rate', 1)
     self.timeout_idle = rospy.get_param('~timeout_idle', 2)
     self.time_prev_update = rospy.Time.now()
-    self.default_vel = rospy.get_param('~default_vel', 0.2)
-    self.vel_scale = rospy.get_param('~vel_scale',100)
-    self.device_port = rospy.get_param('device_port',"/dev/ttyUSB1")
+    self.default_vel = rospy.get_param('~default_vel', 0.4)
+    self.vel_scale = rospy.get_param('~vel_scale',254)
+    self.device_port = rospy.get_param('~device_port',"/dev/ttyUSB1")
 
     self.target_v = 0
     self.target_w = 0
@@ -50,12 +50,13 @@ class CmdVelToDiffDriveMotors:
       right = 254
       rospy.loginfo("RIGHT WHEEL SPEED OUT OF LIMIT")
     send = 'ff'
+    send += 'ff'
     send += ' ' + "{:02x}".format(signal_left)
     send += ' ' + "{:02x}".format(left)
     send += ' ' + "{:02x}".format(signal_right)
     send += ' ' + "{:02x}".format(right)
-    send += ' ' + '0a'
     send += ' ' + '0d'
+    send += ' ' + '0a'
     # rospy.loginfo("SENDING BAGS is : %s", send)
     
     sendHex = send.split()
