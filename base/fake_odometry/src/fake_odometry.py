@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import roslib
-roslib.load_manifest('fake_odometry')
+roslib.load_manifest('differential_control')
 import rospy
 import math
 import tf
