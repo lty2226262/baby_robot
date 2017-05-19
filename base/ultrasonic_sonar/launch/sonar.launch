@@ -1,0 +1,7 @@
+<launch>
+  <node pkg="ultrasonic_sonar" type="sonar.py" name="sonar" output="screen">
+    <param name="rate" value="10.0"/>
+    <param name="device_port" value="/dev/ttyUSB1"/>
+    <param name="sonar_frame_id" value="/sonar"/>
+  </node>
+</launch>

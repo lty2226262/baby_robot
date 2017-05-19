@@ -1,0 +1,10 @@
+<launch>
+  <node pkg="differential_control" type="diffdrive_controller.py" name="diffdrive_controller" output="screen">
+    <param name="rate" value="50"/>
+    <param name="timeout_idle" value="50"/>
+    <param name="robot_wheel_separation_distance" value="0.14"/>
+    <param name="default_vel" value="0.2"/>
+    <param name="vel_scale" value="100"/>
+    <param name="" value="/dev/ttyUSB1"
+  </node>
+</launch>
