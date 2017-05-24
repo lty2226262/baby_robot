@@ -7,7 +7,6 @@ project(ultrasonic_sonar)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
-  sensormsgs
 )
 
 ## System dependencies are found with CMake's conventions
