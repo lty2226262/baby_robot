@@ -1,0 +1,12 @@
+<launch>
+  <node ns="fore" pkg="ultrasonic_sonar" type="sonar.py" name="sonar" output="screen">
+    <param name="rate" value="100.0"/>
+    <param name="device_port" value="/dev/fore_sonar"/>
+    <param name="sonar_frame_id" value="/sonar_fore"/>
+  </node>
+  <node ns="back" pkg="ultrasonic_sonar" type="sonar.py" name="sonar" output="screen">
+    <param name="rate" value="100.0"/>
+    <param name="device_port" value="/dev/back_sonar"/>
+    <param name="sonar_frame_id" value="/sonar_back"/>
+  </node>
+</launch>
