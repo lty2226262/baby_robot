@@ -25,8 +25,8 @@ class CmdVelWatchDog:
 		self.cmd_vel_sub = rospy.Subscriber('cmd_vel', Twist, self.twistCallback)
 		self.FORE = 0
 		self.BACK = 1
-		self.sonar_fore_sub = rospy.Subscriber(sonar_fore, Range, self.rangeCallback,self.FORE)
-		self.sonar_back_sub = rospy.Subscriber(sonar_back, Range, self.rangeCallback,self.BACK)
+		self.sonar_fore_sub = rospy.Subscriber(self.sonar_fore, Range, self.rangeCallback,self.FORE)
+		self.sonar_back_sub = rospy.Subscriber(self.sonar_back, Range, self.rangeCallback,self.BACK)
 
 		self.cmd_vel_pub = rospy.Publisher('cmd_vel',Twist, queue_size = 1)
 
@@ -43,13 +43,13 @@ class CmdVelWatchDog:
 			print 'SOMETHING WRONG WITH THE FLAG!'
 
 	def update(self):
-		if (self.sonar_fore_distance < self.tolerance_fore) and (target_v > 0):
+		if (self.sonar_fore_distance < self.tolerance_fore) and (self.target_v > 0):
 			self.target_v = 0.
-			self.cmd_vel_pub.publish(self.Twist(Vector3(self.target_v,0.,0.), Vector3(0.,0.,self.target_w)))
+			self.cmd_vel_pub.publish(Twist(Vector3(self.target_v,0.,0.), Vector3(0.,0.,self.target_w)))
 			rospy.logwarn("FRONT HITS WALL!")
-		elif (self.sonar_back_distance < self.tolerance_back) and (target_v < 0):
+		elif (self.sonar_back_distance < self.tolerance_back) and (self.target_v < 0):
 			self.target_v = 0.
-			self.cmd_vel_pub.publish(self.Twist(Vector3(self.target_v,0.,0.), Vector3(0.,0.,self.target_w)))
+			self.cmd_vel_pub.publish(Twist(Vector3(self.target_v,0.,0.), Vector3(0.,0.,self.target_w)))
 			rospy.logwarn("FRONT HITS WALL!")
 
 	def shutdown(self):

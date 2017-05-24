@@ -1,9 +1,9 @@
 <launch>
   <include file="$(find ultrasonic_sonar)/launch/dual_sonar.launch" />
   <node pkg="obstacle_avoidance" type="obstacle_avoidance.py" name="obstacle_avoidance" output="screen">
-    <param name="rate" value="200.0" />
-    <param name="tolerance_fore" value="0.20" />
-    <param name="tolerance_back" value="0.20" />
+    <param name="rate" value="500.0" />
+    <param name="tolerance_fore" value="0.40" />
+    <param name="tolerance_back" value="0.40" />
     <param name="sonar_fore" value="/fore/sonar" />
     <param name="sonar_back" value="/back/sonar" />
   </node>
