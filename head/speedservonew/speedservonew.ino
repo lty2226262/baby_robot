@@ -4,7 +4,7 @@
 Servo myservoH_, myservoVlr_, myservoVfb_;
 
 Servo myServos[3] = {myservoH_, myservoVlr_, myservoVfb_};
-int currentAngles[3] = {90, 90, 90}; // 三个舵机, 头水平, 头俯仰, 脸蛋
+int currentAngles[3] = {90, 108, 90}; // 三个舵机, 头水平, 头俯仰, 脸蛋
 
 const int initDelayTime = 30; //舵机初始化延时时间
 const int moveDelayTime = 10; //舵机运动延时时间 最快为4，最慢是100
@@ -78,7 +78,8 @@ void setup() {
   pinMode(trigPin,OUTPUT);
   setTrig(LOW);//LOW
   for (int i = 0; i < 3;i++){
-    servoRun(90,i);
+    
+    servoRun(currentAngles[i],i);
     delay(initDelayTime);
   }
 }
