@@ -5,6 +5,7 @@ project(baby_follower)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED)
+find_package(OpenCV REQUIRED)
 add_definitions(-std=c++11)
 
 ## System dependencies are found with CMake's conventions
@@ -113,7 +114,10 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(include)
+include_directories(
+  ${OpenCV_INCLUDE_DIRS}
+  include
+)
 
 ## Declare a C++ library
 # add_library(baby_follower
@@ -128,6 +132,8 @@ include_directories(include)
 ## Declare a C++ executable
 add_executable(velocity_converter src/velocity_converter.cpp)
 
+add_executable(lidar_outlier_picker src/lidar_outlier_picker.cpp)
+
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(baby_follower_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
@@ -136,6 +142,12 @@ add_executable(velocity_converter src/velocity_converter.cpp)
 target_link_libraries(velocity_converter
   ${catkin_LIBRARIES}
 )
+
+target_link_libraries(lidar_outlier_picker
+  ${catkin_LIBRARIES} 
+  ${OpenCV_LIBS}
+)
+
 
 #############
 ## Install ##

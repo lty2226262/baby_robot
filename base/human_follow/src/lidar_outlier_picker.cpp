@@ -6,7 +6,7 @@
 
 void LidarOutlierPickerCallback(const sensor_msgs::LaserScan &input){
   //Configure parameters
-  std::string filename = "~/.ros/lidar_config/LS01.yaml"
+  std::string filename = "/home/tt/.ros/LS01.yml";
   double range_limit = 1.0;
   
   std::vector<int> outlier_index_vector;
@@ -24,7 +24,7 @@ void LidarOutlierPickerCallback(const sensor_msgs::LaserScan &input){
   }
   
   //Convert vector to cvMat
-  outlier_size = outlier_index.size();
+  outlier_size = outlier_index_vector.size();
   cv::Mat_<int> outlier_index(1,outlier_size);
   cv::Mat_<double> outlier_value(1,outlier_size);
   memcpy(outlier_index.data, outlier_index_vector.data(), outlier_size*sizeof(int));
@@ -38,11 +38,17 @@ void LidarOutlierPickerCallback(const sensor_msgs::LaserScan &input){
   file_storage.release();
   
   std::cout << "Write done at: " << filename << std::endl;
+  ros::shutdown();
   
 }
 int main ( int argc, char** argv){
   ros::init (argc, argv, "lidar_outlier_picker");
   ros::NodeHandle nh;
-  ros::Subscriber lidar_sub = nh.subscribe("/scan", 1, LidarOutlierPickerCallback);
-  ros::spinOnce();
+  ros::Rate loop_rate(1);
+  while (ros::ok()){
+    ros::Subscriber lidar_sub = nh.subscribe("/scan", 1, LidarOutlierPickerCallback);
+    loop_rate.sleep();
+    ros::spinOnce();
+  }
+  
 }
