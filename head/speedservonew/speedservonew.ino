@@ -8,7 +8,8 @@ Servo myServos[3] = {myservoH_, myservoVlr_, myservoVfb_};
 int currentAngles[3] = {90, 108, 90}; // 三个舵机, 头水平, 头俯仰, 脸蛋
 
 const int initDelayTime = 30; //舵机初始化延时时间
-const int moveDelayTime = 10; //舵机运动延时时间 最快为4，最慢是10
+//const int moveDelayTime = 12; //舵机运动延时时间 最快为4，最慢是12
+const int moveDelayTime = 10;
 const int moveDelayMin = 4;
 const int moveDelayMax = 100;
 const int powerDelay = 1000; //运动完成后延时断电
@@ -18,6 +19,7 @@ const int servoZeroPin = 9;
 const int resolution = 1;
 const float weight_smooth = 0.1;
 const float tolerance = 0.00001;
+//const float accelerate_limit = 0;
 const float accelerate_limit = 0.5;
 
 byte incomingByte[2];
