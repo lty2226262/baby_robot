@@ -14,7 +14,7 @@ const int moveDelayMin = 4;
 const int moveDelayMax = 100;
 const int powerDelay = 1000; //运动完成后延时断电
 const float pParament = 4.0; //PID control >0
-const int trigPin = 8;
+const int trigPin = 2;
 const int servoZeroPin = 9;
 const int resolution = 1;
 const float weight_smooth = 0.1;
@@ -93,7 +93,7 @@ void ComputeParameter(int targetAngle, int currentAngle){
   }
   new_path[mid_index] = mid_value;
   flexible[mid_index] = 0;
-  Smooth;
+  Smooth();
 }
 
 void servoRun(int targetAngle, int servoNum){
